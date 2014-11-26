@@ -1,0 +1,138 @@
+<?php
+class router extends db{
+
+    private $pages = array();
+    private $backendPages = array();
+
+    function load($page, $position = array()){
+        if(file_exists('template/pages/frontend/'.$page.'.php')){
+            if($position['0'] == 'before' || $position['0'] == 'after'){
+                $t = array();
+
+                foreach($this->pages as $tPage){
+                    if($tPage == $position['1'] && $position['0'] == 'before'){
+                        $t = $page;
+                    }
+                    $t[] = $tPage;
+                    if($tPage == $position['1'] && $position['0'] == 'after'){
+                        $t = $page;
+                    }
+                }
+
+                $this->pages = $t;
+            }else{
+                $this->pages[] = $page;
+            }
+        }
+    }
+
+    function getURL(){
+        $link = explode('/', $_SERVER['REQUEST_URI']);
+        if($link['1'] == 'home' || $link['1'] == 'index'){
+            header("HTTP/1.1 301 Moved Permanently");
+            header("Location: http://".$_SERVER['SERVER_NAME']);
+            exit();
+        }
+        if($link['1'] != ''){
+            $lastIndex = (sizeof($link) - 1);
+            if(preg_match('/.html|.php/', $link[$lastIndex])){
+                $t = explode('?', $_SERVER['REQUEST_URI']);
+                $t['0'] = $link[$lastIndex] = preg_replace('/.html|.php/', '', $t['0']);
+                $location = $_SERVER['SERVER_NAME'].$t['0'];
+                $location .= $t['1'] != '' ? '?'.$t['1'] : '';
+                header("HTTP/1.1 301 Moved Permanently");
+                header("Location: http://".$location);
+                exit();
+            }
+            if($link['1'] == 'index' || $link['1'] == ''){
+                $link['1'] = 'home';
+            }
+        }else{
+            $link['1'] = 'home';
+        }
+        $link = preg_replace('/(\?.*)/', '', $link);
+        return $link;
+    }
+
+	function existsPage($page){
+		$lastIndex = (sizeof($page) - 1);
+        $servicePages = array(
+            'home', 'cabinet'
+        );
+
+		if($page['1'] == 'user' || $page['1'] == 'base'){
+            if($page['1'] == 'user'){
+                $m = new users();
+            }else{
+                $m = new bases();
+            }
+            return $m->exists($page['2']);
+        }else{
+            if($page[$lastIndex] == '404'){
+                return true;
+            }
+
+            if(in_array($page['1'], $servicePages)){
+                return true;
+            }
+        }
+
+        return false;
+	}
+
+	function go(){
+		$link = $this->getURL();
+        $data = array();
+
+		if(!$this->existsPage($link)){
+			header("HTTP/1.0 404 Not Found");
+            $this->load('404');
+		}else{
+            switch($link['1']){
+                case 'user':
+                    $this->load('userpage');
+                    break;
+                case 'base':
+                    $this->load('base');
+                    break;
+                case 'cabinet':
+                    if($_SESSION['userID'] == ''){
+                        $m = new users();
+                        switch($link['2']){
+                            case 'edit':
+                                $this->load('cabinet/edit');
+                                break;
+                            case 'user':
+                                $this->load('cabinet/main');
+                                break;
+                            default:
+                                header("Location: http://".$_SERVER['SERVER_NAME'].'/cabinet/user');
+                                exit();
+                                break;
+                        }
+                    }else{
+                        header("Location: http://".$_SERVER['SERVER_NAME'].'/#notLogged');
+                        exit();
+                    }
+                    break;
+                case 'home':
+                default:
+                    $this->load('home');
+                    break;
+            }
+        }
+
+        $this->buildPage($data);
+	}
+
+	function buildPage($data){
+        include 'template/pages/frontend/service/header.php';
+        if(sizeof($this->pages) >= 1){
+            foreach($this->pages as $a){
+                include 'template/pages/frontend/'.$a.'.php';
+            }
+        }
+        include 'template/pages/frontend/service/footer.php';
+	}
+
+}
