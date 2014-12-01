@@ -63,6 +63,11 @@ class router extends db{
 		if($page['1'] == 'user' || $page['1'] == 'base'){
             if($page['1'] == 'user'){
                 $m = new users();
+                if($_SESSION['userID'] != '' && $page['2'] == ''){
+                    header("HTTP/1.1 301 Moved Permanently");
+                    header("Location: http://".$_SERVER['SERVER_NAME'].'/user/'.$_SESSION['userID']);
+                    exit();
+                }
             }else{
                 $m = new bases();
             }
