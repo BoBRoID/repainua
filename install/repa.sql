@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50538
 File Encoding         : 65001
 
-Date: 2014-12-01 18:04:57
+Date: 2014-12-01 23:57:13
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -23,6 +23,20 @@ CREATE TABLE `invites` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` text,
   `email` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for pages
+-- ----------------------------
+DROP TABLE IF EXISTS `pages`;
+CREATE TABLE `pages` (
+  `id` int(11) NOT NULL,
+  `link` varchar(255) NOT NULL,
+  `title` text,
+  `description` text,
+  `maintance` tinyint(1) NOT NULL DEFAULT '0',
+  `pagetype` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
