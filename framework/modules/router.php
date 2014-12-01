@@ -85,16 +85,30 @@ class router extends db{
             if(in_array($page['1'], $servicePages)){
                 return true;
             }
+
+            $query = $this->query("SELECT `id` FROM `pages` WHERE `link` = '{$page['1']}'");
+            if($query->num_rows >= 1){
+                return true;
+            }
         }
 
         return false;
 	}
 
+    function getCategoryMaintance($catID){
+        return false;
+    }
+
+    function getTemplateData($link){
+        $query = $this->query("SELECT * FROM `pages` WHERE `link` = '{$link}'");
+        return $query->fetch_assoc();
+    }
+
 	function go(){
 		$link = $this->getURL();
         $data = array();
 
-		if(!$this->existsPage($link)){
+		if($this->existsPage($link) == false){
 			header("HTTP/1.0 404 Not Found");
             $this->load('404');
 		}else{
@@ -132,8 +146,21 @@ class router extends db{
                     }
                     break;
                 case 'home':
-                default:
                     $this->load('home');
+                    break;
+                default:
+                    $tData = $this->getTemplateData($link['1']);
+                    if($tData['pagetype'] == 'page' && $this->getCategoryMaintance($tData['mainCategory'])){
+                        $tData['maintance'] = '1';
+                        $tData['pagetype'] = 'category';
+                    }
+
+                    if($tData['maintance'] == '1'){
+                        $this->load('maintance/'.$tData['pagetype']);
+                        break;
+                    }
+
+                    $this->load('pagetemplates/'.$tData['pagetype']);
                     break;
             }
         }
