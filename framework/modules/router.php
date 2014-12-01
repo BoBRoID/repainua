@@ -57,18 +57,23 @@ class router extends db{
 	function existsPage($page){
 		$lastIndex = (sizeof($page) - 1);
         $servicePages = array(
-            'home', 'cabinet'
+            'home', 'cabinet', 'map', 'list'
         );
 
 		if($page['1'] == 'user' || $page['1'] == 'base'){
             if($page['1'] == 'user'){
-                $m = new users();
                 if($_SESSION['userID'] != '' && $page['2'] == ''){
                     header("HTTP/1.1 301 Moved Permanently");
                     header("Location: http://".$_SERVER['SERVER_NAME'].'/user/'.$_SESSION['userID']);
                     exit();
                 }
+                $m = new users();
             }else{
+                if($page['2'] == ''){
+                    header("HTTP/1.1 301 Moved Permanently");
+                    header("Location: http://".$_SERVER['SERVER_NAME'].'/list');
+                    exit();
+                }
                 $m = new bases();
             }
             return $m->exists($page['2']);
@@ -99,6 +104,12 @@ class router extends db{
                     break;
                 case 'base':
                     $this->load('base');
+                    break;
+                case 'map':
+                    $this->load('map');
+                    break;
+                case 'list':
+                    $this->load('list');
                     break;
                 case 'cabinet':
                     if($_SESSION['userID'] == ''){
