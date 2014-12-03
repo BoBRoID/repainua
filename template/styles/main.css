@@ -20,6 +20,21 @@ body{
     font-family: roboto;
 }
 
+.typicalBlock p{
+    font-size: 13px;
+}
+
+hr{
+    margin: 5px auto;
+    border: 0;
+    height: 2px;
+    background: rgb(41, 182, 246);
+}
+
+hr.silver{
+    background: rgb(212, 212, 212);
+}
+
 h1, h2, h3, h4, h5, h6{
     font-weight: 100;
     color: rgba(0, 0, 0, 0.6);
