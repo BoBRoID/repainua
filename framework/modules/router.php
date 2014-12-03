@@ -108,6 +108,8 @@ class router extends db{
 		$link = $this->getURL();
         $data = array();
 
+        $this->load('service/menu');
+
 		if($this->existsPage($link) == false){
 			header("HTTP/1.0 404 Not Found");
             $this->load('404');
@@ -165,10 +167,10 @@ class router extends db{
             }
         }
 
-        $this->buildPage($data);
+        $this->buildPage($data, $link);
 	}
 
-	function buildPage($data){
+	function buildPage($data, $link){
         include 'template/pages/frontend/service/header.php';
         if(sizeof($this->pages) >= 1){
             foreach($this->pages as $a){
