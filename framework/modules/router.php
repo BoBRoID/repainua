@@ -57,7 +57,7 @@ class router extends db{
 	function existsPage($page){
 		$lastIndex = (sizeof($page) - 1);
         $servicePages = array(
-            'home', 'cabinet', 'map', 'list'
+            'home', 'cabinet', 'map', 'list', 'registration', 'rescue'
         );
 
 		if($page['1'] == 'user' || $page['1'] == 'base'){
@@ -116,7 +116,7 @@ class router extends db{
 		}else{
             switch($link['1']){
                 case 'user':
-                    $this->load('userpage');
+                    $this->load('cabinet/userpage');
                     break;
                 case 'base':
                     $this->load('base');
@@ -127,8 +127,14 @@ class router extends db{
                 case 'list':
                     $this->load('list');
                     break;
+                case 'registration':
+                    $this->load('cabinet/registration');
+                    break;
+                case 'rescue':
+                    $this->load('cabinet/rescue');
+                    break;
                 case 'cabinet':
-                    if($_SESSION['userID'] == ''){
+                    if($_SESSION['userID'] != ''){
                         $m = new users();
                         switch($link['2']){
                             case 'edit':
