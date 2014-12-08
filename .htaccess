@@ -1,0 +1,5 @@
+RewriteEngine on
+DirectoryIndex site.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([^?]*)$ /site.php [NC,L,QSA]
