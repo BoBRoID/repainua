@@ -98,6 +98,36 @@ h2{
     border-bottom: 3px solid rgb(255, 255, 0);
 }
 
+.menu ul li ul{
+	margin-left: 0;
+	margin-top: 16px;
+	z-index: 999;
+	position: absolute;
+	padding-bottom: 20px;
+	display: none;
+}
+
+.menu ul li ul li{
+	display: block;
+	float: none;
+	background: rgb(3, 155, 229);
+	position: relative;
+	margin-top: 0;
+	line-height: 20px;
+}
+
+.menu ul li ul li a:hover{
+	border: none;
+}
+
+.menu ul li ul li a{
+	padding: 3px 25px;
+}
+
+.menu ul li:hover ul{
+	display: block;
+}
+
 .pageContainer{
     width: 100%;
     max-width: 1000px;

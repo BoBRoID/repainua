@@ -63,8 +63,17 @@ class users extends db{
             return 'userExists';
         }
 
+		$f = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=6Lfeqv4SAAAAAFLZPlKz177kdZhPl24RyYg_8w4_&response=".$array['g-recaptcha-response']);
+		$f = json_decode($f);
+		$f = (array) $f;
+		$f = $f['success'];
+
+		if($f != 1){
+			return 'wrongCaptcha';
+		}
+
         $password = hash("sha512", $array['password'], false);
-        $array['phoneCode'] = $array['phoneCode'] == '' ? '+380' : $array['phoneCode'];
+        $array['phoneCode'] = $array['phoneCode'] == '' ? '+38' : $array['phoneCode'];
         $array['phone'] = $array['phoneCode'].(filter_var($array['phone'], FILTER_SANITIZE_NUMBER_INT));
         $this->query("INSERT INTO `users` (`login`, `password`, `email`, `name`, `surname`, `phone`) VALUES ('{$array['login']}', '{$password}', '{$array['email']}', '{$array['name']}', '{$array['surname']}', '{$array['phone']}')");
         return 'success';

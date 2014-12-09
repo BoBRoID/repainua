@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : localhost
-Source Server Version : 50538
+Source Server Version : 50540
 Source Host           : localhost:3306
 Source Database       : repa
 
 Target Server Type    : MYSQL
-Target Server Version : 50538
+Target Server Version : 50540
 File Encoding         : 65001
 
-Date: 2014-12-01 23:57:13
+Date: 2014-12-09 11:50:43
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -27,18 +27,31 @@ CREATE TABLE `invites` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of invites
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for pages
 -- ----------------------------
 DROP TABLE IF EXISTS `pages`;
 CREATE TABLE `pages` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `link` varchar(255) NOT NULL,
   `title` text,
   `description` text,
   `maintance` tinyint(1) NOT NULL DEFAULT '0',
   `pagetype` varchar(64) DEFAULT NULL,
+  `data` text,
+  `inMenu` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of pages
+-- ----------------------------
+INSERT INTO `pages` VALUES ('1', 'terms-and-licenses', 'Правила сайта', null, '0', 'page', 'Правила пользования сайтом repa.in.ua', '0');
+INSERT INTO `pages` VALUES ('2', 'about', 'О сайте', null, '0', 'page', 'О сайте', '1');
+INSERT INTO `pages` VALUES ('3', 'contacts', 'Контакты', null, '0', 'page', 'Контакты', '0');
 
 -- ----------------------------
 -- Table structure for users
@@ -56,3 +69,7 @@ CREATE TABLE `users` (
   `confirmed` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of users
+-- ----------------------------

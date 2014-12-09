@@ -41,7 +41,7 @@
 			</label>
 		</div>
 		<div class="input">
-			<input type="text" name="phone" id="phone">
+			<input type="text" name="phone" id="phone" placeholder="0941234567">
 			<label for="phone">
 				Ваш номер телефона
 				<small>Этот номер телефона не будет опубликован в профиле</small>
@@ -50,9 +50,19 @@
 		<br>
 		<div class="g-recaptcha" data-sitekey="6Lfeqv4SAAAAAG3GdtBoD_00CbeM7f1DKNv9UvME"></div>
 		<br>
-		<center><button type="button">РЕГИСТРАЦИЯ</button></center>
+		<center>
+			<button type="button">РЕГИСТРАЦИЯ</button><br><br>
+			<small>нажав эту кнопку, вы принимаете <b>правила сайта</b></small>
+		</center>
     </form>
 	<script>
+		document.querySelector('.registrationForm > center > small > b').onclick = function() {
+			Modal.open({
+				ajaxContent: '/?ajax=true&action=help&page=terms',
+				width: '600px'
+			});
+		}
+
 		document.querySelector(".registrationForm button").addEventListener('click', function(e){
 			e.preventDefault();
 			if(grecaptcha.getResponse() != ''){

@@ -169,10 +169,18 @@ class router extends db{
 
                     if($tData['maintance'] == '1'){
                         $this->load('maintance/'.$tData['pagetype']);
+						$data['robots'] = 'noindex';
                         break;
                     }
 
                     $this->load('pagetemplates/'.$tData['pagetype']);
+					$data = array(
+						'title' => $tData['title'],
+						'data'	=> $tData['data']
+					);
+					$title = $tData['title'].' - repa.in.ua';
+					$description = $tData['description'];
+					$keywords = $tData['keywords'];
                     break;
             }
         }
