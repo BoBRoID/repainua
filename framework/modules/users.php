@@ -32,10 +32,27 @@ class users extends db{
 
     }
 
+	function loginExists($login){
+		$query = $this->query("SELECT `id` FROM `users` WHERE `login` = '{$login}'");
+		return $query->num_rows >= 1;
+	}
+
     function exists($id){
         $query = $this->query("SELECT `id` FROM `users` WHERE `id` = '{$id}' AND `confirmed` = '1'");
         return $query->num_rows >= 1;
     }
+
+	function activate($code){
+		$query = $this->query("SELECT `email` FROM `activations` WHERE `code` = '{$code}'");
+
+		if($query->num_rows < 1){
+			return false;
+		}
+
+		$query = $query->fetch_assoc();
+		$this->query("UPDATE `users` SET `confirmed` = '1' WHERE `email` = '{$query['email']}'");
+		return true;
+	}
 
     function register($array){
         if($array['password'] == ''){
@@ -76,7 +93,18 @@ class users extends db{
         $array['phoneCode'] = $array['phoneCode'] == '' ? '+38' : $array['phoneCode'];
         $array['phone'] = $array['phoneCode'].(filter_var($array['phone'], FILTER_SANITIZE_NUMBER_INT));
         $this->query("INSERT INTO `users` (`login`, `password`, `email`, `name`, `surname`, `phone`) VALUES ('{$array['login']}', '{$password}', '{$array['email']}', '{$array['name']}', '{$array['surname']}', '{$array['phone']}')");
-        return 'success';
+
+		$activationLink = md5($password);
+		$this->query("INSERT INTO `activations` (`code`, `email`) VALUES ('{$activationLink}', '{$array['email']}')");
+
+		/*
+		$m = new emails();
+		$query = $this->query("SELECT `value` FROM `messages` WHERE `type` = '1' AND `messageType` = '1'");
+		$query->fetch_assoc();
+		$m->send($array['email'], $query['value']);
+		*/
+
+		return 'success';
     }
 
 }

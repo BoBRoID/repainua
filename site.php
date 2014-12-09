@@ -9,9 +9,10 @@
     }
 
 	$router = new router();
-	if($_POST['ajax_do'] || $_GET['ajax'] == 'true'){
+	if($_POST['ajax'] || $_GET['ajax']){
 		$m = new claims();
 		$m->ajax($_POST ? $_POST : $_GET);
+		exit;
 	}elseif($_POST){
 		$m = new claims();
 		$m->fetch($_POST);

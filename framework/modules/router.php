@@ -57,7 +57,7 @@ class router extends db{
 	function existsPage($page){
 		$lastIndex = (sizeof($page) - 1);
         $servicePages = array(
-            'home', 'cabinet', 'map', 'list', 'registration', 'rescue'
+            'home', 'cabinet', 'map', 'list', 'registration', 'rescue', 'activate'
         );
 
 		if($page['1'] == 'user' || $page['1'] == 'base'){
@@ -131,6 +131,26 @@ class router extends db{
 					$title = "Восстановление пароля - repa.in.ua";
                     $this->load('cabinet/rescue');
                     break;
+				case 'activate':
+					if($_GET['activationCode'] != ''){
+						$m = new users();
+						if($m->activate($_GET['activationCode'])){
+							$data = array(
+								'title' => 'Активация аккаунта',
+								'data' => 'Ваш аккаунт успешно активирован! Теперь вы можете войти на сайт через форму входа: для этого нажмите на кнопку "Вход" в верхнем левой части меню.'
+							);
+						}else{
+							$data = array(
+								'title' => 'Активация аккаунта',
+								'data' => 'Код активации неверный! Если эта ошибка повторяется, обратитесь в техподдержку по адресу <a href="mailto:webmaster@repa.in.ua">webmaster@repa.in.ua</a>'
+							);
+						}
+						$this->load('pagetemplates/page');
+					}else{
+						header("Location: http://".$_SERVER['SERVER_NAME'].'/');
+						exit();
+					}
+					break;
                 case 'cabinet':
                     if($_SESSION['userID'] != ''){
                         $m = new users();
@@ -192,6 +212,7 @@ class router extends db{
 
 	function buildPage($data, $link){
 		$document = $data['document'];
+		unset($data['document']);
         include 'template/pages/frontend/service/header.php';
         if(sizeof($this->pages) >= 1){
             foreach($this->pages as $a){
