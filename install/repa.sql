@@ -10,10 +10,25 @@ Target Server Type    : MYSQL
 Target Server Version : 50540
 File Encoding         : 65001
 
-Date: 2014-12-09 11:59:33
+Date: 2014-12-10 00:45:00
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for activations
+-- ----------------------------
+DROP TABLE IF EXISTS `activations`;
+CREATE TABLE `activations` (
+  `code` varchar(64) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  PRIMARY KEY (`code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of activations
+-- ----------------------------
+INSERT INTO `activations` VALUES ('3080b109c9d626b7edeee8a60fd46463', 'n.gilko@gmail.com');
 
 -- ----------------------------
 -- Table structure for invites
@@ -28,6 +43,23 @@ CREATE TABLE `invites` (
 
 -- ----------------------------
 -- Records of invites
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for messages
+-- ----------------------------
+DROP TABLE IF EXISTS `messages`;
+CREATE TABLE `messages` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `type` tinyint(4) NOT NULL,
+  `value` text NOT NULL,
+  `messageType` tinyint(4) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of messages
 -- ----------------------------
 
 -- ----------------------------
@@ -69,8 +101,9 @@ CREATE TABLE `users` (
   `avatar` text,
   `confirmed` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
+INSERT INTO `users` VALUES ('5', 'BoBRoID', '4e4929eedfb1e7569e41e202656af358f745cecafc0ae0b8e307db1735190406650e9a4c4dd80a5921e52396e97d05f2c2119f0daffdf023799b8523d453ca33', 'n.gilko@gmail.com', 'Николай', 'Гилко', '+380939829014', null, '1');

@@ -51,6 +51,7 @@ class users extends db{
 
 		$query = $query->fetch_assoc();
 		$this->query("UPDATE `users` SET `confirmed` = '1' WHERE `email` = '{$query['email']}'");
+		$this->query("DELETE FROM `activations` WHERE `code` = '{$code}'");
 		return true;
 	}
 
