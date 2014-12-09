@@ -99,11 +99,6 @@ class router extends db{
         return false;
     }
 
-    function getTemplateData($link){
-        $query = $this->query("SELECT * FROM `pages` WHERE `link` = '{$link}'");
-        return $query->fetch_assoc();
-    }
-
 	function go(){
 		$link = $this->getURL();
         $data = array();
@@ -161,7 +156,8 @@ class router extends db{
                     $this->load('home');
                     break;
                 default:
-                    $tData = $this->getTemplateData($link['1']);
+					$m = new pages();
+                    $tData = $m->get($link['1']);
                     if($tData['pagetype'] == 'page' && $this->getCategoryMaintance($tData['mainCategory'])){
                         $tData['maintance'] = '1';
                         $tData['pagetype'] = 'category';
