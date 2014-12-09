@@ -125,12 +125,15 @@ class router extends db{
                     $this->load('map');
                     break;
                 case 'list':
+					$title = "Список репетиционных баз - repa.in.ua";
                     $this->load('list');
                     break;
                 case 'registration':
+					$title = "Регистрация - repa.in.ua";
                     $this->load('cabinet/registration');
                     break;
                 case 'rescue':
+					$title = "Восстановление пароля - repa.in.ua";
                     $this->load('cabinet/rescue');
                     break;
                 case 'cabinet':
@@ -154,6 +157,7 @@ class router extends db{
                     }
                     break;
                 case 'home':
+					$title = "repa.in.ua - каталог репетиционных баз Киева и Украины";
                     $this->load('home');
                     break;
                 default:
@@ -173,10 +177,17 @@ class router extends db{
             }
         }
 
+		$data['document'] = array(
+			'title' 		=> 	$title,
+			'description' 	=> 	$description,
+			'keywords'		=>	$keywords
+		);
+
         $this->buildPage($data, $link);
 	}
 
 	function buildPage($data, $link){
+		$document = $data['document'];
         include 'template/pages/frontend/service/header.php';
         if(sizeof($this->pages) >= 1){
             foreach($this->pages as $a){
