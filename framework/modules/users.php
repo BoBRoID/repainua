@@ -92,10 +92,10 @@ class users extends db{
 
         $password = hash("sha512", $array['password'], false);
         $array['phoneCode'] = $array['phoneCode'] == '' ? '+38' : $array['phoneCode'];
-        $array['phone'] = $array['phoneCode'].(filter_var($array['phone'], FILTER_SANITIZE_NUMBER_INT));
+        $array['phone'] = $array['phone'] != '' ? $array['phoneCode'].(filter_var($array['phone'], FILTER_SANITIZE_NUMBER_INT)) : '';
         $this->query("INSERT INTO `users` (`login`, `password`, `email`, `name`, `surname`, `phone`) VALUES ('{$array['login']}', '{$password}', '{$array['email']}', '{$array['name']}', '{$array['surname']}', '{$array['phone']}')");
 
-		$activationLink = md5($password);
+		$activationLink = md5($password.$array['email']);
 		$this->query("INSERT INTO `activations` (`code`, `email`) VALUES ('{$activationLink}', '{$array['email']}')");
 
 		/*
