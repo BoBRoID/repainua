@@ -1,3 +1,6 @@
+php_value session.auto_start 1
+php_value date.timezone Europe/Kyiv
+
 RewriteEngine on
 DirectoryIndex site.php
 RewriteCond %{REQUEST_FILENAME} !-f
