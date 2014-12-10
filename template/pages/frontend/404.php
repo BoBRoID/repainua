@@ -9,6 +9,6 @@
 		</div>
 	</div>
 	<div style="min-width: 120px; max-width: 420px; margin-left: 20px; float: left; overflow: hidden; position: relative;">
-		<img src="http://en.bir-robotic.ir/wp-content/uploads/dock-icon-flat.png" style="min-width: 120px; max-width: 420px;">
+		<img src="/template/images/roboto.png" style="min-width: 120px; max-width: 420px;">
 	</div>
 </div>
