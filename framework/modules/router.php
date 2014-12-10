@@ -117,6 +117,7 @@ class router extends db{
                     $this->load('base');
                     break;
                 case 'map':
+					$title = 'Активация аккаунта - repa.in.ua';
                     $this->load('map');
                     break;
                 case 'list':
@@ -137,14 +138,15 @@ class router extends db{
 						if($m->activate($_GET['activationCode'])){
 							$data = array(
 								'title' => 'Активация аккаунта',
-								'data' => 'Ваш аккаунт успешно активирован! Теперь вы можете войти на сайт через форму входа: для этого нажмите на кнопку "Вход" в верхнем левой части меню.'
+								'data' 	=> 'Ваш аккаунт успешно активирован! Теперь вы можете войти на сайт через форму входа: для этого нажмите на кнопку "Вход" в верхнем левой части меню.'
 							);
 						}else{
 							$data = array(
 								'title' => 'Активация аккаунта',
-								'data' => 'Код активации неверный! Если эта ошибка повторяется, обратитесь в техподдержку по адресу <a href="mailto:webmaster@repa.in.ua">webmaster@repa.in.ua</a>'
+								'data' 	=> 'Код активации неверный! Если эта ошибка повторяется, обратитесь в техподдержку по адресу <a href="mailto:webmaster@repa.in.ua">webmaster@repa.in.ua</a>'
 							);
 						}
+						$title = 'Активация аккаунта - repa.in.ua';
 						$this->load('pagetemplates/page');
 					}else{
 						header("Location: http://".$_SERVER['SERVER_NAME'].'/');
