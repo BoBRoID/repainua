@@ -3,24 +3,36 @@
 	<div class="leftSidebar typicalBlock">
 		asdasd
 	</div>
-	<div class="contentBlock typicalBlock">
-		<div class="baseBlock">
-			asd 1
+	<div class="contentBlock">
+		<div class="baseBlock typicalBlock">
+			<div class="baseImage">
+				<img src="http://www.profi.com/forum/images/userpix/628_sdf_7_lr_1.jpg">
+			</div>
 		</div>
-		<div class="baseBlock">
-			asd 2
+		<div class="baseBlock typicalBlock">
+			<div class="baseImage">
+				<img src="/template/images/roboto.png">
+			</div>
 		</div>
-		<div class="baseBlock">
-			asd 3
+		<div class="baseBlock typicalBlock">
+			<div class="baseImage">
+				<img src="http://www.profi.com/forum/images/userpix/628_sdf_7_lr_1.jpg">
+			</div>
 		</div>
-		<div class="baseBlock">
-			asd 4
+		<div class="baseBlock typicalBlock">
+			<div class="baseImage">
+				<img src="/template/images/roboto.png">
+			</div>
 		</div>
-		<div class="baseBlock">
-			asd 5
+		<div class="baseBlock typicalBlock">
+			<div class="baseImage">
+				<img src="http://www.profi.com/forum/images/userpix/628_sdf_7_lr_1.jpg">
+			</div>
 		</div>
-		<div class="baseBlock">
-			asd 6
+		<div class="baseBlock typicalBlock">
+			<div class="baseImage">
+				<img src="/template/images/roboto.png">
+			</div>
 		</div>
 	</div>
 </div>

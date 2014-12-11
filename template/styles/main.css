@@ -344,21 +344,40 @@ input[type=text].bad, input[type=password].bad{
 	float: right;
 }
 
+
 .baseBlock{
 	width: 220px;
-	margin-right: 20px;
-	margin-bottom: 20px;
+	height: 312px;
 	float: left;
-	background: rgba(0, 0, 0, 0.2);
+	overflow: hidden;
+	box-shadow: 0 0 7px #B6B6B6;
+	margin-bottom: 20px;
+	margin-right: 20px;
+	border-radius: 3px;
+	padding: 0px;
 }
+
+.baseBlock .baseImage{
+	height: 53%;
+	width: 100%;
+	overflow: hidden;
+}
+
+
+.baseBlock .baseImage img{
+	margin: 0 auto;
+	width: 100%;
+}
+
 
 @media screen and (max-width: 1000px) {
 	.twoColumns .contentBlock{
 		width: 67%;
 	}
-	
+
 	.baseBlock{
-		width: 240px;
+		width: 260px;
+		height: 368px;
 	}
 }
 
@@ -369,6 +388,7 @@ input[type=text].bad, input[type=password].bad{
 
 	.baseBlock{
 		width: 200px;
+		height: 283px;
 	}
 }
 
@@ -379,6 +399,7 @@ input[type=text].bad, input[type=password].bad{
 	}
 
 	.baseBlock{
-		width: 240px;
+		width: 260px;
+		height: 368px;
 	}
 }
